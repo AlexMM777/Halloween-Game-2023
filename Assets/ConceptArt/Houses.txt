@@ -1,0 +1,43 @@
+House 1
+    Idea: Easy tutorial house to teach player mechanics(what are the mechanics?)
+    Theme: Not so spooky halloween things such as
+        pumpkins
+        not spooky ghosts
+        bats
+    Design:
+        This one will not be haunted, some rich person's house that created a spooky house with electronic halloween stuff
+        Pushing hidden button to open a door or something
+
+House 2:
+    Idea: Now that theyre familiar, test their skills with mid puzzles and gameplay
+    Theme: 
+        Another not hanted house, this timie with a goofy witch animatronic 
+    Design:
+        Getting 3 potions for the witch that wil let you get past the main door
+        Player will probably find each potion in rooms with spooky stuff in them
+
+House 3:
+    Idea: The kids now want a real challenge and dare the main character to go to an abandoned house that rumors say is haunted
+    Theme:
+        First abandoned house where spooky stuff will happen, this one's theme are Ghosts
+    Design:
+        Small-ish house with an overgrown frontyard
+        Characted will need to enter from backyard where they will need to find a way inside the house
+        Once inside they will begin to notice paranormal stuff
+
+House 4:
+    Idea: Stuff is going to start getting dangerous, first house where kids will run to mother if they get too spooked 
+    Theme:
+        A graveyard, skeletons, zombies
+    Design:
+        The gate where the main character entered will suspiciously close, now he will need to find the key by checking out different places in the graveyard
+
+House 5(Last house?):
+    Idea: Final house will be a mansion with all sorts of halloween stuff happening in there, mansion is 'inspired' by the iSpy book
+    Theme:
+        Everything halloween
+    Design:
+        Mansion will have
+            front area with giant fountain 
+            back area with a maze thingy
+
