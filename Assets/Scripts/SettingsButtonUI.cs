@@ -9,7 +9,8 @@ using System.Linq;
 
 public class SettingsButtonUI : MonoBehaviour
 {
-    public GameObject mainMenu, quit, settings;
+    public GameObject loadingScreen;
+    public Slider slider;
     Resolution[] resolutions;
     private Resolution[] reversedResolutions;
     public TMP_Dropdown resolutionDropdown;
@@ -22,7 +23,7 @@ public class SettingsButtonUI : MonoBehaviour
         //mainMenu.SetActive(true);
         //quit.SetActive(false);
         //settings.SetActive(false); 
-        //CreateResDropdown();
+        CreateResDropdown();
     }
 
     void Update()
@@ -30,7 +31,7 @@ public class SettingsButtonUI : MonoBehaviour
 
     }
 
-    /*public void CreateResDropdown()
+    public void CreateResDropdown()
     {
         resolutions = Screen.resolutions;
         resolutionDropdown.ClearOptions();
@@ -45,16 +46,31 @@ public class SettingsButtonUI : MonoBehaviour
                 currentResolutionIndex = i;
             }
         }
-        reversedResolutions = resolutions.Reverse();
+        resolutions.Reverse();
+        reversedResolutions = resolutions;
         resolutionDropdown.AddOptions(options);
         resolutionDropdown.value = currentResolutionIndex;
         resolutionDropdown.RefreshShownValue();
         graphics.value = PlayerPrefs.GetInt("GraphicQuality");
-    }*/
+    }
 
     public void LoadScene(string sceneToLoad)
     {
-        SceneManager.LoadScene(sceneToLoad);
+        StartCoroutine(LoadAsync(sceneToLoad));
+
+        //SceneManager.LoadScene(sceneToLoad);
+    }
+
+    IEnumerator LoadAsync (string sceneToLoad)
+    {
+        AsyncOperation operation = SceneManager.LoadSceneAsync(sceneToLoad);
+        loadingScreen.SetActive(true);
+        while(!operation.isDone)
+        {
+            float progress = Mathf.Clamp01( operation.progress / .9f );
+            slider.value = progress;
+            yield return null;
+        }
     }
 
     public void Enable(GameObject item)
