@@ -24,7 +24,6 @@ public class FootstepObjectDetector : MonoBehaviour
             if (other.gameObject.tag == "Stone")
             {
                 playerBody.GetComponent<FootSteps>().isOnObj = true;
-                //Debug.Log("Stone");
                 playerBody.GetComponent<FootSteps>().chosenSounds = playerBody.GetComponent<FootSteps>().stoneSteps;
                 playerBody.GetComponent<FootSteps>().ChooseRandom();
                 currentlyOnObj = true;
@@ -33,16 +32,21 @@ public class FootstepObjectDetector : MonoBehaviour
             if (other.gameObject.tag == "Wood")
             {
                 playerBody.GetComponent<FootSteps>().isOnObj = true;
-                //Debug.Log("Wood");
                 playerBody.GetComponent<FootSteps>().chosenSounds = playerBody.GetComponent<FootSteps>().woodSteps;
                 playerBody.GetComponent<FootSteps>().ChooseRandom();
                 currentlyOnObj = true;
             }
-            if (other.gameObject.tag == "Carpet")
+            if (other.gameObject.tag == "Tile")
             {
                 playerBody.GetComponent<FootSteps>().isOnObj = true;
-                //Debug.Log("Carpet");
-                playerBody.GetComponent<FootSteps>().chosenSounds = playerBody.GetComponent<FootSteps>().carpetSteps;
+                playerBody.GetComponent<FootSteps>().chosenSounds = playerBody.GetComponent<FootSteps>().tileSteps;
+                playerBody.GetComponent<FootSteps>().ChooseRandom();
+                currentlyOnObj = true;
+            }
+            if (other.gameObject.tag == "Gravel")
+            {
+                playerBody.GetComponent<FootSteps>().isOnObj = true;
+                playerBody.GetComponent<FootSteps>().chosenSounds = playerBody.GetComponent<FootSteps>().gravelSteps;
                 playerBody.GetComponent<FootSteps>().ChooseRandom();
                 currentlyOnObj = true;
             }
@@ -51,7 +55,7 @@ public class FootstepObjectDetector : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if ((other.gameObject.tag == "Stone")||(other.gameObject.tag == "Wood") || (other.gameObject.tag == "Carpet"))
+        if ((other.gameObject.tag == "Stone")||(other.gameObject.tag == "Wood") || (other.gameObject.tag == "Tile") || (other.gameObject.tag == "Gravel"))
         {
             currentlyOnObj = false;
             StartCoroutine(CheckIfOnObjStill());

@@ -10,7 +10,6 @@ public class TerrainTextureDetector : MonoBehaviour
     private TerrainData terrainData;
     private Vector3 terrainPos;
 
-    // Use this for initialization
     void Start()
     {
 
@@ -20,24 +19,21 @@ public class TerrainTextureDetector : MonoBehaviour
 
     }
 
-    // Update is called once per frame
     void Update()
     {
         surfaceIndex = GetMainTexture(transform.position);
     }
 
-    void OnGUI()
+    // Shows what terrain texture you are on
+    /*void OnGUI()
     {
         GUI.Box(new Rect(100, 100, 200, 25), "index: " + surfaceIndex.ToString() + ", name: " + terrainData.splatPrototypes[surfaceIndex].texture.name);
-    }
+    }*/
 
     private float[] GetTextureMix(Vector3 WorldPos)
     {
-        // returns an array containing the relative mix of textures
-        // on the main terrain at this world position.
-
-        // The number of values in the array will equal the number
-        // of textures added to the terrain.
+        // Returns an array containing the relative mix of textures on the main terrain at this world position.
+        // The number of values in the array will equal the number of textures added to the terrain.
 
         // calculate which splat map cell the worldPos falls within (ignoring y)
         int mapX = (int)(((WorldPos.x - terrainPos.x) / terrainData.size.x) * terrainData.alphamapWidth);
@@ -57,8 +53,7 @@ public class TerrainTextureDetector : MonoBehaviour
 
     private int GetMainTexture(Vector3 WorldPos)
     {
-        // returns the zero-based index of the most do$$anonymous$$ant texture
-        // on the main terrain at this world position.
+        // returns the zero-based index of the most dominant texture on the main terrain at this world position.
         float[] mix = GetTextureMix(WorldPos);
 
         float maxMix = 0;

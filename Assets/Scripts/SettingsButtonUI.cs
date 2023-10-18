@@ -111,15 +111,15 @@ public class SettingsButtonUI : MonoBehaviour
 
     public void SetMasterVolume(float volume)
     {
-        audioMixer.SetFloat("masterVolume", volume);
+        audioMixer.SetFloat("masterVol", volume);
     }
     public void SetMusicVolume(float volume)
     {
-        audioMixer.SetFloat("musicVolume", volume);
+        audioMixer.SetFloat("musicVol", volume);
     }
     public void SetSoundEffectsVolume(float volume)
     {
-        audioMixer.SetFloat("soundEffectsVolume", volume);
+        audioMixer.SetFloat("sfxVol", volume);
     }
 
     public void PlaySoundEffect(AudioSource sound)
