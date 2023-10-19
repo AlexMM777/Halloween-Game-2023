@@ -121,9 +121,4 @@ public class SettingsButtonUI : MonoBehaviour
     {
         audioMixer.SetFloat("sfxVol", volume);
     }
-
-    public void PlaySoundEffect(AudioSource sound)
-    {
-        sound.Play();
-    }
 }
