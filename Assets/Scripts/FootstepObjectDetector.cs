@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class FootstepObjectDetector : MonoBehaviour
 {
-    public GameObject playerBody;
+    public GameObject playerMesh;
     public bool currentlyOnObj;
 
     void Start()
@@ -19,35 +19,35 @@ public class FootstepObjectDetector : MonoBehaviour
 
     void OnTriggerStay(Collider other)
     {
-        if (playerBody.GetComponent<FootSteps>().isOnGround)
+        if (playerMesh.GetComponent<FootSteps>().isOnGround)
         {
             if (other.gameObject.tag == "Stone")
             {
-                playerBody.GetComponent<FootSteps>().isOnObj = true;
-                playerBody.GetComponent<FootSteps>().chosenSounds = playerBody.GetComponent<FootSteps>().stoneSteps;
-                playerBody.GetComponent<FootSteps>().ChooseRandom();
+                playerMesh.GetComponent<FootSteps>().isOnObj = true;
+                playerMesh.GetComponent<FootSteps>().chosenSounds = playerMesh.GetComponent<FootSteps>().stoneSteps;
+                playerMesh.GetComponent<FootSteps>().ChooseRandom();
                 currentlyOnObj = true;
             }
 
             if (other.gameObject.tag == "Wood")
             {
-                playerBody.GetComponent<FootSteps>().isOnObj = true;
-                playerBody.GetComponent<FootSteps>().chosenSounds = playerBody.GetComponent<FootSteps>().woodSteps;
-                playerBody.GetComponent<FootSteps>().ChooseRandom();
+                playerMesh.GetComponent<FootSteps>().isOnObj = true;
+                playerMesh.GetComponent<FootSteps>().chosenSounds = playerMesh.GetComponent<FootSteps>().woodSteps;
+                playerMesh.GetComponent<FootSteps>().ChooseRandom();
                 currentlyOnObj = true;
             }
             if (other.gameObject.tag == "Tile")
             {
-                playerBody.GetComponent<FootSteps>().isOnObj = true;
-                playerBody.GetComponent<FootSteps>().chosenSounds = playerBody.GetComponent<FootSteps>().tileSteps;
-                playerBody.GetComponent<FootSteps>().ChooseRandom();
+                playerMesh.GetComponent<FootSteps>().isOnObj = true;
+                playerMesh.GetComponent<FootSteps>().chosenSounds = playerMesh.GetComponent<FootSteps>().tileSteps;
+                playerMesh.GetComponent<FootSteps>().ChooseRandom();
                 currentlyOnObj = true;
             }
             if (other.gameObject.tag == "Gravel")
             {
-                playerBody.GetComponent<FootSteps>().isOnObj = true;
-                playerBody.GetComponent<FootSteps>().chosenSounds = playerBody.GetComponent<FootSteps>().gravelSteps;
-                playerBody.GetComponent<FootSteps>().ChooseRandom();
+                playerMesh.GetComponent<FootSteps>().isOnObj = true;
+                playerMesh.GetComponent<FootSteps>().chosenSounds = playerMesh.GetComponent<FootSteps>().gravelSteps;
+                playerMesh.GetComponent<FootSteps>().ChooseRandom();
                 currentlyOnObj = true;
             }
         }
@@ -67,7 +67,7 @@ public class FootstepObjectDetector : MonoBehaviour
         yield return new WaitForSecondsRealtime(0.3f);
         if (!currentlyOnObj)
         {
-            playerBody.GetComponent<FootSteps>().isOnObj = false;
+            playerMesh.GetComponent<FootSteps>().isOnObj = false;
         }
     }
 }

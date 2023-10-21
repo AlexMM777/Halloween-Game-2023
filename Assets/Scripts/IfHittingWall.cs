@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class IfHittingWall : MonoBehaviour
 {
-    public GameObject playerBody;
+    public GameObject playerMesh;
 
     void Start()
     {
-        playerBody.GetComponent<PlayerAnScript>().canMove = true;
+        playerMesh.GetComponent<PlayerAnScript>().canMove = true;
     }
 
     void Update()
@@ -20,13 +20,13 @@ public class IfHittingWall : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Hide"))
         {
-            playerBody.GetComponent<PlayerAnScript>().canMove = false;
+            playerMesh.GetComponent<PlayerAnScript>().canMove = false;
         }
         else if (other.gameObject.GetComponent<CustomTag>() != null)
         {
             if (other.gameObject.GetComponent<CustomTag>().HasTag("Hide"))
             {
-                playerBody.GetComponent<PlayerAnScript>().canMove = false;
+                playerMesh.GetComponent<PlayerAnScript>().canMove = false;
             }
         }
     }
@@ -35,13 +35,13 @@ public class IfHittingWall : MonoBehaviour
         if (other.gameObject.CompareTag("Hide"))
         {
             //Debug.Log("true");
-            playerBody.GetComponent<PlayerAnScript>().canMove = true;
+            playerMesh.GetComponent<PlayerAnScript>().canMove = true;
         }
         else if (other.gameObject.GetComponent<CustomTag>() != null)
         {
             if (other.gameObject.GetComponent<CustomTag>().HasTag("Hide"))
             {
-                playerBody.GetComponent<PlayerAnScript>().canMove = true;
+                playerMesh.GetComponent<PlayerAnScript>().canMove = true;
             }
         }
     }
