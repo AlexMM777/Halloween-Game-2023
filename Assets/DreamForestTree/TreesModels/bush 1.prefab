@@ -185,7 +185,7 @@ Material:
     - _SquashAmount: 1
     - _TranslucencyViewDependency: 0.7
     m_Colors:
-    - _Color: {r: 0.21316262, g: 0.24528301, b: 0, a: 1}
+    - _Color: {r: 0.7607843, g: 1, b: 0, a: 1}
     - _TranslucencyColor: {r: 0.73, g: 0.85, b: 0.40999997, a: 1}
     - _TreeInstanceColor: {r: 1, g: 1, b: 1, a: 1}
     - _TreeInstanceScale: {r: 1, g: 1, b: 1, a: 1}
@@ -368,7 +368,7 @@ MonoBehaviour:
   m_Name: Tree Data
   m_EditorClassIdentifier: 
   _uniqueID: 27
-  materialHash: 4f9cf7504e16195cc9c487762bf58d73-772014080
+  materialHash: 38f0e67e8cbac6aba12c50403b9b700a-772014080
   root:
     _uniqueID: 1
     seed: 1234
@@ -582,7 +582,7 @@ MonoBehaviour:
     geometryMode: 2
     materialBranch: {fileID: 0}
     materialBreak: {fileID: 0}
-    materialFrond: {fileID: 2100000, guid: fc65f1438bd63264788c8a5bbb97ddce, type: 2}
+    materialFrond: {fileID: 2100000, guid: 6571d0b68eadbb14394510cf06a612de, type: 2}
     height: {x: 6.6230316, y: 8.460208}
     radius: 0.5
     radiusCurve:
