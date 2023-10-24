@@ -61,6 +61,17 @@ How are we gonna create these animatronic 3d models?
 --------
 You get ready in your house
 Will meet up with your friends at the park
+In first house the person will tell you if you want to try their haunted house challenge, the squad will dare you to
+    door will lock and you will have to try to escape
+    puzzles
+        blow both candles out to summon the hand, have to give him a lolipop during end for yellow key
+        give bird treat to wake up monster in room, makes noise first, unlocks door, goes back to sleep after waking him up and going into his room, has lolipop for hand
+        NEED SIMPLE INVENTORY SYSTEM ON TOP LEFT OR SOMETHING, spinning 3d obj files
+        parrot snack will probably be upstairs
+        upstairs some decoration popping in out of stairs
+            knock at the door, hear noises, looks at window and theres candy with something's head popping out of the side
+
+TODO: fix stairs
 
 -----------
 cricket sound effects
