@@ -10,6 +10,11 @@ TagManager:
   - Stone
   - Tile
   - Gravel
+  - Candle1
+  - Candle2
+  - Hand
+  - Parrot
+  - Bottom Floor Door
   layers:
   - Default
   - TransparentFX

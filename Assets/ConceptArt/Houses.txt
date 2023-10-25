@@ -66,6 +66,7 @@ In first house the person will tell you if you want to try their haunted house c
     puzzles
         blow both candles out to summon the hand, have to give him a lolipop during end for yellow key
         give bird treat to wake up monster in room, makes noise first, unlocks door, goes back to sleep after waking him up and going into his room, has lolipop for hand
+        you can knock on the first floor door, bird will tell you he's asleep or something
         NEED SIMPLE INVENTORY SYSTEM ON TOP LEFT OR SOMETHING, spinning 3d obj files
         parrot snack will probably be upstairs
         upstairs some decoration popping in out of stairs
