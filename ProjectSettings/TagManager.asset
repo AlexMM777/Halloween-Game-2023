@@ -22,6 +22,9 @@ TagManager:
   - Keyz
   - Lock
   - Top Door
+  - CandyCorn
+  - TopWindow
+  - CandyCornz
   layers:
   - Default
   - TransparentFX

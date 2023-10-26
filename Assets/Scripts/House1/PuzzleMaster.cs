@@ -12,6 +12,8 @@ public class PuzzleMaster : MonoBehaviour
     bool isHandOut;
     bool handBackIn;
     bool handReadyToGiveKey;
+    bool hasKnowckedTopDoor;
+    bool witchReadyToAppear;
 
     HashSet<string> inventory = new HashSet<string>();
 
@@ -26,6 +28,7 @@ public class PuzzleMaster : MonoBehaviour
     public TextMeshProUGUI inventoryUI;
     // The object the player is currently looking at.
     private GameObject targetObject;
+    private GameObject topWindow;
 
     // The angle at which the player is considered to have looked away.
     public float lookAwayAngle = 30f;
@@ -34,6 +37,7 @@ public class PuzzleMaster : MonoBehaviour
     void Start()
     {
         targetObject = GameObject.FindGameObjectWithTag("KeyParent");
+        topWindow= GameObject.FindGameObjectWithTag("TopWindow");
 
         hand = GameObject.FindGameObjectWithTag("Hand");
         startTime = Time.time;
@@ -75,9 +79,17 @@ public class PuzzleMaster : MonoBehaviour
         {
             if (!IsObjectVisible(targetObject))
             {
-                print("KEY POPPED UP");
                 GameObject.FindGameObjectWithTag("Keyz").transform.GetChild(0).gameObject.SetActive(true);
                 handReadyToGiveKey = false;
+            }
+        }
+        if (witchReadyToAppear)
+        {
+            if (!IsObjectVisible(topWindow))
+            {
+                // play witch sound effect
+                GameObject.FindGameObjectWithTag("CandyCorn").transform.GetChild(0).gameObject.SetActive(true);
+                witchReadyToAppear = false;
             }
         }
     }
@@ -148,12 +160,31 @@ public class PuzzleMaster : MonoBehaviour
             }
             if (other.tag == "Parrot")
             {
-                print("Talking to parrot");
+                if (inventory.Contains("CandyCorn"))
+                {
+                    print("Gave candy to parrot and unlocked door");
+                    inventory.Remove("CandyCorn");
+                    // update inventory UI
+                    refreshInventoryUI();
+
+                    // remove lock from door
+                    GameObject.FindGameObjectWithTag("Bottom Floor Door").SetActive(false);
+                } else
+                {
+                    print("Talking to parrot");
+                }
             }
             if (other.tag == "CandyCane" && !inventory.Contains("CandyCane"))
             {
                 other.gameObject.SetActive(false);
                 inventory.Add("CandyCane");
+                // update inventory UI
+                refreshInventoryUI();
+            }
+            if (other.tag == "CandyCornz" && !inventory.Contains("CandyCorn"))
+            {
+                other.gameObject.SetActive(false);
+                inventory.Add("CandyCorn");
                 // update inventory UI
                 refreshInventoryUI();
             }
@@ -163,6 +194,12 @@ public class PuzzleMaster : MonoBehaviour
                 inventory.Add("Key");
                 // update inventory UI
                 refreshInventoryUI();
+            }
+            if (other.tag == "Top Door" && !hasKnowckedTopDoor)
+            {
+                // Play knock sound effect
+                hasKnowckedTopDoor = true;
+                witchReadyToAppear = true;
             }
             if (other.tag == "Lock" && inventory.Contains("Key"))
             {
