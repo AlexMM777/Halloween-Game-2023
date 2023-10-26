@@ -4137,7 +4137,7 @@ CapsuleCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.19
-  m_Height: 1.18
+  m_Height: 1.17
   m_Direction: 1
   m_Center: {x: 0, y: 0.58, z: 0}
 --- !u!114 &4580806656155360805
@@ -7868,8 +7868,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ffccae03ef469b428536d23bcde4584, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sensX: 10
-  sensY: 10
+  mouseSensitivity: 10
   orientation: {fileID: 3385527251599434485}
 --- !u!1 &8462627239749993142
 GameObject:
