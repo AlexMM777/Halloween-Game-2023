@@ -15,6 +15,13 @@ TagManager:
   - Hand
   - Parrot
   - Bottom Floor Door
+  - Inventory
+  - CandyCane
+  - Key
+  - KeyParent
+  - Keyz
+  - Lock
+  - Top Door
   layers:
   - Default
   - TransparentFX
