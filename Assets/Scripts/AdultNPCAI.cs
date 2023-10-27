@@ -10,18 +10,20 @@ public class AdultNPCAI : MonoBehaviour
     public Transform targetDoor;
     public Transform targetInside;
     public TextDialogue3D dialogueScript;
+    public GameObject body;
 
     private float speed = 1;
-    private Animator m_Animator;
     private bool openedDoor = false;
     private bool goToDoor = false;
     private bool gaveCandy = false;
     private bool goInside = false;
     private bool wentOutside = false;
-    
+    private Animator m_Animator;
+    private GameObject nearNPC;
+
     void Start()
     {
-        m_Animator = gameObject.GetComponent<Animator>();
+        m_Animator = body.GetComponent<Animator>();
     }
 
     void Update()
@@ -41,7 +43,7 @@ public class AdultNPCAI : MonoBehaviour
                 {
                     GoToTarget(targetDoor);
                 }
-                if (Vector3.Distance(targetDoor.position, transform.position) == 0)
+                if (Vector3.Distance(targetDoor.position, body.transform.position) == 0)
                 {
                     m_Animator.SetBool("isWalking", false);
                     if (!gaveCandy)
@@ -52,18 +54,17 @@ public class AdultNPCAI : MonoBehaviour
                 }
             }
             
-
             if (goInside)
             {
                 GoToTarget(targetInside);
-                transform.LookAt(targetInside);
+                body.transform.LookAt(targetInside);
                 m_Animator.SetBool("isWalking", true);
 
-                if (Vector3.Distance(targetInside.position, transform.position) == 0)
+                if (Vector3.Distance(targetInside.position, body.transform.position) == 0)
                 {
                     m_Animator.SetBool("isWalking", false);
                     goInside = false;
-                    transform.LookAt(targetDoor);
+                    body.transform.LookAt(targetDoor);
                     m_Animator.SetTrigger("closeDoor");
                     door.openDoor = false;
                     ResetCharacter();
@@ -74,20 +75,17 @@ public class AdultNPCAI : MonoBehaviour
 
     public void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("ChildNPC"))
+        if (other.gameObject.tag == "ChildNPC")
         {
             other.gameObject.GetComponent<ChildNPCAI>().adultScript = this.GetComponent<AdultNPCAI>();
-            if(childKnocked)
-            {
-                //
-            }
+            nearNPC = other.gameObject;
         }
     }
 
     public void GoToTarget(Transform target)
     {
         float step = speed * Time.deltaTime;
-        transform.position = Vector3.MoveTowards(transform.position, target.position, step);
+        body.transform.position = Vector3.MoveTowards(body.transform.position, target.position, step);
     }
 
     private IEnumerator WalkAfterDelay()
@@ -97,15 +95,11 @@ public class AdultNPCAI : MonoBehaviour
         goToDoor = true;
     }
 
-    public void Step()
-    {
-        //filler
-    }
-
     private IEnumerator GiveCandy()
     {
         dialogueScript.SaySomething("Enjoy!!");
         m_Animator.SetTrigger("giveCandy");
+        nearNPC.GetComponent<ChildNPCAI>().animator.SetTrigger("getCandy");
         yield return new WaitForSeconds(4f);
         wentOutside = true;
         goInside = true;
@@ -119,6 +113,7 @@ public class AdultNPCAI : MonoBehaviour
         gaveCandy = false;
         goInside = false;
         wentOutside = false;
+        nearNPC.GetComponent<ChildNPCAI>().leftHouse = true;
+        nearNPC.GetComponent<ChildNPCAI>().arrivedAtHouse = false;
     }
 }
-

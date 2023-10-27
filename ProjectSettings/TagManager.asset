@@ -25,6 +25,7 @@ TagManager:
   - CandyCorn
   - TopWindow
   - CandyCornz
+  - ChildNPC
   layers:
   - Default
   - TransparentFX
