@@ -9,7 +9,7 @@ public class PuzzleMaster : MonoBehaviour
 {
     bool isCandle1Blown;
     bool isCandle2Blown;
-    bool isHandOut;
+    float timeSinceHandOut = 0;
     bool handBackIn;
     bool handReadyToGiveKey;
     bool hasKnowckedTopDoor;
@@ -55,11 +55,10 @@ public class PuzzleMaster : MonoBehaviour
             // Use Mathf.Lerp to interpolate the position between current and target positions
             hand.transform.GetChild(1).position = Vector3.Lerp(hand.transform.GetChild(1).position, hand.transform.GetChild(0).position, journeyFraction);
             // You can also check if the object has reached the target and perform any actions.
-            if (journeyFraction >= 0.035f)
+            if (timeSinceHandOut < 5)
             {
-                summonHand = false;
-                isHandOut = true;
-            }
+                timeSinceHandOut += Time.deltaTime;
+            }  
         }
         if(handBackIn)
         {
@@ -208,14 +207,14 @@ public class PuzzleMaster : MonoBehaviour
                 refreshInventoryUI();
                 print("YOU DID IT!");
             }
-            if (isHandOut && other.tag == "Hand")
+            if (summonHand && other.tag == "Hand")
             {
-                if (inventory.Contains("CandyCane"))
+                if (inventory.Contains("CandyCane") && timeSinceHandOut >= 5)
                 {
                     inventory.Remove("CandyCane");
                     refreshInventoryUI();
                     other.gameObject.transform.GetChild(1).GetChild(0).gameObject.SetActive(true);
-                    isHandOut = false;
+                    summonHand = false;
                     handBackIn = true;
                 }
             }
