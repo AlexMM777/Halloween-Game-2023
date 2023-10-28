@@ -9,11 +9,15 @@ public class PuzzleMaster : MonoBehaviour
 {
     bool isCandle1Blown;
     bool isCandle2Blown;
-    bool isHandOut;
+    float timeSinceHandOut = 0;
     bool handBackIn;
     bool handReadyToGiveKey;
     bool hasKnowckedTopDoor;
     bool witchReadyToAppear;
+    bool candyCornAppeared;
+    float witchWaitTime = 2;
+    GameObject player;
+    GameObject parrot;
 
     HashSet<string> inventory = new HashSet<string>();
 
@@ -32,38 +36,50 @@ public class PuzzleMaster : MonoBehaviour
 
     // The angle at which the player is considered to have looked away.
     public float lookAwayAngle = 30f;
+    GameObject vampire;
 
     // Start is called before the first frame update
     void Start()
     {
+        parrot = GameObject.FindGameObjectWithTag("Parrot");
+        vampire = GameObject.FindGameObjectWithTag("Vampire");
         targetObject = GameObject.FindGameObjectWithTag("KeyParent");
         topWindow= GameObject.FindGameObjectWithTag("TopWindow");
+        player = GameObject.FindGameObjectWithTag("Playerz");
 
         hand = GameObject.FindGameObjectWithTag("Hand");
-        startTime = Time.time;
         journeyLength = Vector3.Distance(transform.position, hand.transform.GetChild(0).position);
+
+        parrot.GetComponents<AudioSource>()[0].PlayDelayed(2);
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (hasKnowckedTopDoor && witchWaitTime > 0)
+        {
+            witchWaitTime -= Time.deltaTime;
+        }
+        if (!witchReadyToAppear && witchWaitTime <= 0 && !candyCornAppeared)
+        {
+            witchReadyToAppear = true;
+        }
         if(summonHand)
         {   
-            float distanceCovered = (Time.time - startTime) * moveSpeed * Time.deltaTime;
+            float distanceCovered = (Time.time - startTime) * (moveSpeed*2f) * Time.deltaTime;
             float journeyFraction = distanceCovered / journeyLength;
 
             // Use Mathf.Lerp to interpolate the position between current and target positions
             hand.transform.GetChild(1).position = Vector3.Lerp(hand.transform.GetChild(1).position, hand.transform.GetChild(0).position, journeyFraction);
             // You can also check if the object has reached the target and perform any actions.
-            if (journeyFraction >= 0.035f)
+            if (timeSinceHandOut < 5)
             {
-                summonHand = false;
-                isHandOut = true;
-            }
+                timeSinceHandOut += Time.deltaTime;
+            }  
         }
         if(handBackIn)
         {
-            float distanceCovered = (Time.time - startTime) * (moveSpeed/2) * Time.deltaTime;
+            float distanceCovered = (Time.time - startTime) * (moveSpeed*8) * Time.deltaTime;
             float journeyFraction = distanceCovered / journeyLength;
 
             // Use Mathf.Lerp to interpolate the position between current and target positions
@@ -88,8 +104,10 @@ public class PuzzleMaster : MonoBehaviour
             if (!IsObjectVisible(topWindow))
             {
                 // play witch sound effect
+                GameObject.FindGameObjectWithTag("topPumpkin").GetComponent<AudioSource>().Play();
                 GameObject.FindGameObjectWithTag("CandyCorn").transform.GetChild(0).gameObject.SetActive(true);
                 witchReadyToAppear = false;
+                candyCornAppeared = true;
             }
         }
     }
@@ -116,7 +134,7 @@ public class PuzzleMaster : MonoBehaviour
         other.gameObject.transform.GetChild(0).gameObject.SetActive(false);
         other.gameObject.transform.GetChild(1).gameObject.SetActive(true);
         // TODO blow sound effect
-        if (isCandle1Blown && isCandle2Blown)
+        if (isCandle1Blown && isCandle2Blown && !summonHand)
         {
             SummonHand();
         }
@@ -124,6 +142,8 @@ public class PuzzleMaster : MonoBehaviour
     private void SummonHand()
     {
         // Activate rowdy noise for hand
+        hand.GetComponent<AudioSource>().Play();
+        startTime = Time.time;
         summonHand = true;
     }
 
@@ -143,26 +163,40 @@ public class PuzzleMaster : MonoBehaviour
         {
             if (!(isCandle1Blown && isCandle2Blown))
             {
-                if (other.tag == "Candle1")
+                if (other.tag == "Candle1" && !isCandle1Blown)
                 {
+                    if (!player.GetComponent<AudioSource>().isPlaying)
+                    {
+                        player.GetComponent<AudioSource>().Play();
+                    }
                     isCandle1Blown = true;
                     BlowCandle(other);
                 }
-                if (other.tag == "Candle2")
+                if (other.tag == "Candle2" && !isCandle2Blown)
                 {
+                    if (!player.GetComponent<AudioSource>().isPlaying)
+                    {
+                        player.GetComponent<AudioSource>().Play();
+                    }
                     isCandle2Blown = true;
                     BlowCandle(other);
                 }
             }
             if (other.tag == "Bottom Floor Door")
             {
-                print("Rattling first floor door!");
+                if (!other.GetComponent<AudioSource>().isPlaying && !vampire.GetComponent<AudioSource>().isPlaying)
+                {
+                    other.GetComponent<AudioSource>().Play();
+                    vampire.GetComponent<AudioSource>().PlayDelayed(1);
+                }
             }
             if (other.tag == "Parrot")
             {
                 if (inventory.Contains("CandyCorn"))
                 {
-                    print("Gave candy to parrot and unlocked door");
+                    parrot.GetComponents<AudioSource>()[2].Play();
+                    GameObject.FindGameObjectWithTag("Coffin").GetComponent<AudioSource>().PlayDelayed(6);
+
                     inventory.Remove("CandyCorn");
                     // update inventory UI
                     refreshInventoryUI();
@@ -171,18 +205,23 @@ public class PuzzleMaster : MonoBehaviour
                     GameObject.FindGameObjectWithTag("Bottom Floor Door").SetActive(false);
                 } else
                 {
-                    print("Talking to parrot");
+                    if (!parrot.GetComponents<AudioSource>()[0].isPlaying && !parrot.GetComponents<AudioSource>()[1].isPlaying && !parrot.GetComponents<AudioSource>()[2].isPlaying && GameObject.FindGameObjectWithTag("Bottom Floor Door") != null)
+                    {
+                        parrot.GetComponents<AudioSource>()[1].Play();
+                    }
                 }
             }
             if (other.tag == "CandyCane" && !inventory.Contains("CandyCane"))
             {
-                other.gameObject.SetActive(false);
+                other.GetComponent<AudioSource>().Play();
+                other.gameObject.GetComponent<MeshRenderer>().enabled = false;
                 inventory.Add("CandyCane");
                 // update inventory UI
                 refreshInventoryUI();
             }
             if (other.tag == "CandyCornz" && !inventory.Contains("CandyCorn"))
             {
+                GameObject.FindGameObjectWithTag("CandyCorn").GetComponent<AudioSource>().Play();
                 other.gameObject.SetActive(false);
                 inventory.Add("CandyCorn");
                 // update inventory UI
@@ -190,6 +229,7 @@ public class PuzzleMaster : MonoBehaviour
             }
             if (other.tag == "Key" && !inventory.Contains("Key"))
             {
+                GameObject.FindGameObjectWithTag("Keyz").GetComponent<AudioSource>().Play();
                 other.gameObject.SetActive(false);
                 inventory.Add("Key");
                 // update inventory UI
@@ -198,8 +238,8 @@ public class PuzzleMaster : MonoBehaviour
             if (other.tag == "Top Door" && !hasKnowckedTopDoor)
             {
                 // Play knock sound effect
+                other.gameObject.GetComponent<AudioSource>().Play();
                 hasKnowckedTopDoor = true;
-                witchReadyToAppear = true;
             }
             if (other.tag == "Lock" && inventory.Contains("Key"))
             {
@@ -208,16 +248,29 @@ public class PuzzleMaster : MonoBehaviour
                 refreshInventoryUI();
                 print("YOU DID IT!");
             }
-            if (isHandOut && other.tag == "Hand")
+            if (summonHand && other.tag == "Hand")
             {
-                if (inventory.Contains("CandyCane"))
+                if (inventory.Contains("CandyCane") && timeSinceHandOut >= 5)
                 {
                     inventory.Remove("CandyCane");
                     refreshInventoryUI();
                     other.gameObject.transform.GetChild(1).GetChild(0).gameObject.SetActive(true);
-                    isHandOut = false;
+                    summonHand = false;
+                    other.gameObject.transform.GetChild(1).GetComponent<AudioSource>().Play();
+                    startTime = Time.time;
                     handBackIn = true;
                 }
+            }
+            if (other.tag == "Speaker")
+            {
+                if (other.gameObject.GetComponent<AudioSource>().isPlaying)
+                {
+                    other.gameObject.GetComponent<AudioSource>().Pause();
+                } else
+                {
+                    other.gameObject.GetComponent<AudioSource>().UnPause();
+                }
+                
             }
         }
     }

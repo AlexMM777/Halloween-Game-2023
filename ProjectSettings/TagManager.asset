@@ -26,6 +26,11 @@ TagManager:
   - TopWindow
   - CandyCornz
   - ChildNPC
+  - Playerz
+  - topPumpkin
+  - Vampire
+  - Coffin
+  - Speaker
   layers:
   - Default
   - TransparentFX
