@@ -30,6 +30,7 @@ TagManager:
   - topPumpkin
   - Vampire
   - Coffin
+  - Speaker
   layers:
   - Default
   - TransparentFX

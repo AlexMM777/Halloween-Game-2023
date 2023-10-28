@@ -205,7 +205,7 @@ public class PuzzleMaster : MonoBehaviour
                     GameObject.FindGameObjectWithTag("Bottom Floor Door").SetActive(false);
                 } else
                 {
-                    if (!parrot.GetComponents<AudioSource>()[0].isPlaying && !parrot.GetComponents<AudioSource>()[1].isPlaying && !parrot.GetComponents<AudioSource>()[2].isPlaying)
+                    if (!parrot.GetComponents<AudioSource>()[0].isPlaying && !parrot.GetComponents<AudioSource>()[1].isPlaying && !parrot.GetComponents<AudioSource>()[2].isPlaying && GameObject.FindGameObjectWithTag("Bottom Floor Door") != null)
                     {
                         parrot.GetComponents<AudioSource>()[1].Play();
                     }
@@ -260,6 +260,17 @@ public class PuzzleMaster : MonoBehaviour
                     startTime = Time.time;
                     handBackIn = true;
                 }
+            }
+            if (other.tag == "Speaker")
+            {
+                if (other.gameObject.GetComponent<AudioSource>().isPlaying)
+                {
+                    other.gameObject.GetComponent<AudioSource>().Pause();
+                } else
+                {
+                    other.gameObject.GetComponent<AudioSource>().UnPause();
+                }
+                
             }
         }
     }
