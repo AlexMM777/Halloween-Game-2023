@@ -108398,6 +108398,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6845687684602684547}
+  - component: {fileID: 6757007578838195293}
   m_Layer: 0
   m_Name: FrontDoor
   m_TagString: Untagged
@@ -108413,8 +108414,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9216371865500194490}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 2.8533175, y: 0.44821864, z: 2.1220224}
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
+  m_LocalPosition: {x: 0.63, y: 0.44821864, z: 2.1220224}
   m_LocalScale: {x: 1.8354863, y: 1.8414552, z: 0.72115564}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -108424,4 +108425,17 @@ Transform:
   - {fileID: 4795419600022544346}
   - {fileID: 2834896936581501534}
   m_Father: {fileID: 335620128652794484}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
+--- !u!114 &6757007578838195293
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9216371865500194490}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 772eb0e8ba771034bad00c6163dd5212, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  openDoor: 0

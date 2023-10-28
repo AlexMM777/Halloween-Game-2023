@@ -6,25 +6,28 @@ using UnityEngine.AI;
 public class ChildNPCAI : MonoBehaviour
 {
     public bool arrivedAtHouse = false;
+    public bool leftHouse;
     public TextDialogue3D dialogueScript;
-    public AdultNPCAI adultScript;
-
-    public Transform[] locations;
-    private NavMeshAgent agent;
-    private int selectedLoc = 0;
-    private int previousLoc = -1;
-    public bool leftHouse = false;
     public Animator animator;
+    public AdultNPCAI adultScript;   
+    public HouseLoc[] houseLocs;
+    public bool isAtLoc;
 
+    private NavMeshAgent agent;
+    public int selectedLoc = 0;
+    private int previousLoc = -1;
+    
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
         animator = GetComponent<Animator>();
 
         // 4 TESTING
+        //selectedLoc = 1;
+        isAtLoc = false;
         selectedLoc = 1;
-        leftHouse = false;
-        animator.SetBool("isWalking", true);
+        //selectedLoc = Random.Range(0, houseLocs.Length);
+        //animator.SetBool("isWalking", true);
         //
     }
 
@@ -32,9 +35,10 @@ public class ChildNPCAI : MonoBehaviour
     {     
         if (leftHouse)
         {
-            selectedLoc = Random.Range(0, locations.Length);
-            animator.SetBool("isWalking", true);
-            Debug.Log("GET OFF ME LAWN");
+            previousLoc = selectedLoc;
+            //isAtLoc = false;
+            selectedLoc = Random.Range(0, houseLocs.Length);
+            //Debug.Log("GET OFF ME LAWN");
             leftHouse = false;
         }
         if (!arrivedAtHouse)
@@ -45,7 +49,6 @@ public class ChildNPCAI : MonoBehaviour
 
     private IEnumerator Knock()
     {
-        Debug.Log("STOP WALKING");
         animator.SetBool("isWalking", false);
         dialogueScript.SaySomething("Trick or treat!!");
         yield return new WaitForSeconds(2f);
@@ -57,19 +60,24 @@ public class ChildNPCAI : MonoBehaviour
 
     public IEnumerator GoTo()
     {
-        if (selectedLoc != previousLoc)
+        if (houseLocs[selectedLoc].isInUse == false)
         {
-            agent.destination = locations[selectedLoc].position;
+            animator.SetBool("isWalking", true);
+            if (selectedLoc != previousLoc)
+            {
+                agent.destination = houseLocs[selectedLoc].transform.position;
+            }
         }
-        previousLoc = selectedLoc;
-
-        if (Vector3.Distance(locations[selectedLoc].position, transform.position) < 0.3)
+        else if (houseLocs[selectedLoc].isInUse == true & !isAtLoc)
+        {
+            selectedLoc = Random.Range(0, houseLocs.Length);
+        }
+        if ((Vector3.Distance(houseLocs[selectedLoc].transform.position, transform.position) < 0.3) & (isAtLoc == true))
         {
             arrivedAtHouse = true;
             StartCoroutine(Knock());
             yield return new WaitForSeconds(2f);
             adultScript.childKnocked = true;
-            //Debug.Log("HOWDY");
         }
     }
 }

@@ -210,7 +210,6 @@ GameObject:
   m_Component:
   - component: {fileID: 5018943905694823413}
   - component: {fileID: 7212571035297742973}
-  - component: {fileID: 9192760400765958269}
   m_Layer: 0
   m_Name: CandyGiverSetup
   m_TagString: Untagged
@@ -254,27 +253,7 @@ MonoBehaviour:
   targetInside: {fileID: 8769562146635027126}
   dialogueScript: {fileID: 423246194070992940}
   body: {fileID: 3839925987311121643}
---- !u!65 &9192760400765958269
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 291836189809331764}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1.89, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 1.91}
+  nearNPC: {fileID: 0}
 --- !u!1 &293377046186136125
 GameObject:
   m_ObjectHideFlags: 0
