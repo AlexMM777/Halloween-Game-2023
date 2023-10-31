@@ -77,6 +77,16 @@ public class ChildNPCAI : MonoBehaviour
             arrivedAtHouse = true;
             StartCoroutine(Knock());
             yield return new WaitForSeconds(2f);
+            // Say trick or treat
+            int randomNumber = Random.Range(1, 11);
+            if (randomNumber >= 6)
+            {
+                if (GetComponents<AudioSource>().Length > 0)
+                {
+                    int randomNumberIndex = (int)Random.Range(0, 3);
+                    GetComponents<AudioSource>()[randomNumberIndex].Play();
+                }
+            }
             adultScript.childKnocked = true;
         }
     }

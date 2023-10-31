@@ -33,6 +33,7 @@ public class PuzzleMaster : MonoBehaviour
     // The object the player is currently looking at.
     private GameObject targetObject;
     private GameObject topWindow;
+    public AudioSource success;
 
     // The angle at which the player is considered to have looked away.
     public float lookAwayAngle = 30f;
@@ -246,7 +247,7 @@ public class PuzzleMaster : MonoBehaviour
                 inventory.Remove("Key");
                 // update inventory UI
                 refreshInventoryUI();
-                print("YOU DID IT!");
+                success.Play();
             }
             if (summonHand && other.tag == "Hand")
             {

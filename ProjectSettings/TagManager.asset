@@ -31,6 +31,9 @@ TagManager:
   - Vampire
   - Coffin
   - Speaker
+  - Dad
+  - Squad
+  - House1Giver
   layers:
   - Default
   - TransparentFX

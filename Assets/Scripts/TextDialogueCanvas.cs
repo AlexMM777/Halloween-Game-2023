@@ -8,28 +8,25 @@ public class TextDialogueCanvas : MonoBehaviour
     public TextMeshProUGUI dialogueText;
 
     private float delay = 0.05f;
-    private string fullText;
+    private string[] fullTexts;
+    private string currentFullText = "";
+    private int currentSentenceIndex = 0;
     private string currentText = "";
-    private bool dialogueInUse;
+    public bool dialogueInUse;
 
     public void Update()
     {
         // Skip dialogue by clearing text
-        if (Input.GetKeyDown("space"))
-        {
-            fullText = "";
-            currentText = "";
-            dialogueText.text = currentText;
-            dialogueInUse = false;
-        }
+       
     }
 
-    public void SaySomething(string dialogue)
+    public void SaySomething(string[] dialogue)
     {
         // Input what you want character to say
         if (!dialogueInUse)
         {
-            fullText = dialogue;
+            // currentFullText = fullTexts[currentSentenceIndex];
+            fullTexts = dialogue;
             dialogueInUse = true;
             StartCoroutine(ShowText());
         }
@@ -38,15 +35,19 @@ public class TextDialogueCanvas : MonoBehaviour
     IEnumerator ShowText()
     {
         // Shows the text with the variable delay as the "speed" the text shows up
-        for (int i = 0; i < fullText.Length; i++)
+        for (int j = 0; j < fullTexts.Length; j++) 
         {
-            currentText = fullText.Substring(0, i);
+            currentFullText = fullTexts[j];
+            for (int i = 0; i <= currentFullText.Length; i++)
+            {
+                currentText = currentFullText.Substring(0, i);
+                dialogueText.text = currentText;
+                yield return new WaitForSeconds(delay);
+            }
+            yield return new WaitForSeconds(1.3f);
+            currentText = "";
             dialogueText.text = currentText;
-            yield return new WaitForSeconds(delay);
         }
-        yield return new WaitForSeconds(1.3f);
-        currentText = "";
-        dialogueText.text = currentText;
         dialogueInUse = false;
     }
 }
